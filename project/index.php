@@ -34,7 +34,7 @@
                             <a class="nav-link" href="business.php">Businesses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">User Settings</a>
+                            <a class="nav-link active" href="preferences.php">User Settings</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Saved Businesses</a>

@@ -30,10 +30,10 @@
                             </a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="business.php">Businesses</a>
+                            <a class="nav-link active" href="business.php">Businesses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">User Settings</a>
+                            <a class="nav-link active" href="preferences.php">User Settings</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Saved Businesses</a>
@@ -58,44 +58,20 @@
         </nav>
         <!-- END -- Add HTML code for the top menu section (navigation bar) -->
         <div class="jumbotron">
-            <p class="lead">Select an employee's name<p>
-            <hr class="my-4">
+            <hr class="my-0">
             <form method="GET" action="business.php">
-                <select name="bus" onchange='this.form.submit()'>
-                    <option selected>Select a name</option>
-
-                    <?php
-                    $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-                    if ( mysqli_connect_errno() )
-                    {
-                        die( mysqli_connect_error() );
-                    }
-                    $sql = "select Name, Address, City, State, Business_Zip from BUSINESS";
-                    if ($result = mysqli_query($connection, $sql))
-                    {
-                        // loop through the data
-                        while($row = mysqli_fetch_assoc($result))
-                        {
-                            echo '<option value="' . $row['Name'] . '">';
-                            echo $row['Address']. ', '. $row['City'] . '">';
-                            echo $row['State']. ', '. $row['Business_Zip'];
-                            echo "</option>";
-                        }
-                        // release the memory used by the result set
-                        mysqli_free_result($result);
-                    }
-                    ?>
-                </select>
+                <?php
+                $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+                ?>
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "GET")
                 {
-                    if (isset($_GET['bus']) )
-                    {
                 ?>
                 <p>&nbsp;</p>
                 <table class="table table-hover">
                     <thead>
-                        <tr class="table-success">
+                        <tr class="table-primary">
+                            <th scope="col">#</th>
                             <th scope="col">Business Name</th>
                             <th scope="col">Address</th>
                             <th scope="col">City</th>
@@ -108,7 +84,7 @@
                         {
                             die( mysqli_connect_error() );
                         }
-                        $sql = "  SELECT Name, Address, City, State, Business_Zip
+                        $sql = "  SELECT BusinessID, Name, Address, City, State, Business_Zip
                             FROM BUSINESS";
 
                         if ($result = mysqli_query($connection, $sql))
@@ -117,18 +93,19 @@
                             {
                     ?>
                     <tr>
+                        <td><?php echo $row['BusinessID'] ?></td>
                         <td><?php echo $row['Name'] ?></td>
                         <td><?php echo $row['Address'] ?></td>
                         <td><?php echo $row['City'] ?></td>
                         <td><?php echo $row['State'] ?></td>
                         <td><?php echo $row['Business_Zip'] ?></td>
+                        <td><button class ="btn btn-secondary">Info</button></td>
                     </tr>
                     <?php
                             }
                             // release the memory used by the result set
                             mysqli_free_result($result);
                         }
-                    } // end if (isset)
                 } // end if ($_SERVER)
                     ?>
                 </table>
